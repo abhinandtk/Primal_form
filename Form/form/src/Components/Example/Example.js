@@ -23,6 +23,7 @@ export default function Example() {
     ]})
     const inputchange=(e)=>{
         const {name,value}=e.target
+        console.log(e.target);
         setState({...state,[name]:value})
       
     }
@@ -124,6 +125,7 @@ export default function Example() {
         setState((prev) => ({ ...prev, abc: data }));
 
     }
+    console.log(state);
     
    
   return (
@@ -136,10 +138,10 @@ export default function Example() {
                 <>
                  <div class="form-row">
                  <div class="col-md-6 mb-3">
-                   <input type="text" class="form-control" id="validationDefault01" name='Name'  onChange={(e)=>inputchange}  placeholder='Name'  required></input>
+                   <input type="text" class="form-control" id="validationDefault01" name='Name'  onChange={inputchange}  placeholder='Name'  required></input>
                  </div>
                  <div class="col-md-6 mb-3">
-                   <input type="Email" class="form-control" id="validationDefault02" name='Email' onChange={(e)=>inputchange}  placeholder='Email'  required></input>
+                   <input type="Email" class="form-control" id="validationDefault02" name='Email' onChange={inputchange}  placeholder='Email'  required></input>
                  </div>
                  <div class="col-md-4 mb-3">
              

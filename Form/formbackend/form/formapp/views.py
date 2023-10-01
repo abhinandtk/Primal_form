@@ -3,15 +3,11 @@ from rest_framework.generics import GenericAPIView
 from rest_framework import status
 from rest_framework.response import Response
 from .models import User,Education
-from .serializers import EducationSerializer,NestedEducationSerializer,CombinedUserDataSerializer,EducationSerializertwo
-from rest_framework.generics import UpdateAPIView  # Import UpdateAPIView from rest_framework.generics
-
-
-
-# Create your views here.
+from .serializers import Userserializer,Educationserializer
+from rest_framework.generics import UpdateAPIView
 
 class Register(GenericAPIView):
-    serializer_class = EducationSerializer
+    serializer_class = Userserializer
 
     def post(self, request):
         data = request.data
@@ -22,66 +18,33 @@ class Register(GenericAPIView):
         serializer = self.serializer_class(data=data)
 
         if serializer.is_valid():
-            user = User.objects.create(Name=Name, Email=Email)
-
-            education_entries = []
-
+            user=serializer.save()
+            # user = User.objects.create(Name=Name, Email=Email)
             for entry in abc_data:
                 course = entry.get('Course')
                 university = entry.get('University')
                 date = entry.get('date')
+                user_id = User.objects.get(id=user.id)
                 
-                # Retrieve the User instance
-                user_instance = User.objects.get(id=user.id)
-                
-                # Create Education objects with the associated User instance
-                education = Education.objects.create(Course=course, University=university, date=date, log_id=user_instance)
-                education_entries.append(education)
+                education = Education.objects.create(Course=course, University=university, date=date, log_id=user_id)
 
             return Response({'data': serializer.data, 'message': 'Data registered successfully', 'success': True}, status=status.HTTP_201_CREATED)
         else:
             return Response({'message': 'Registration failed', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
-
-class Getalldata(GenericAPIView):
-    serializer_class = EducationSerializer
-    
-    def get(self, request):
-        queryset = User.objects.all()
-        serializer = self.serializer_class(queryset, many=True)
-        return Response({'data': serializer.data, 'message': 'all set', 'success': True}, status=status.HTTP_200_OK)
-
-
-class Getedu(GenericAPIView):
-    serializer_class = NestedEducationSerializer
-    
-    def get(self, request):
-        queryset = Education.objects.all()
-        serializer = self.serializer_class(queryset, many=True)
-        return Response({'data': serializer.data, 'message': 'all set', 'success': True}, status=status.HTTP_200_OK)
     
 
 class GetCombinedData(GenericAPIView):
-    serializer_class = CombinedUserDataSerializer
-    
+    serializer_class = Userserializer
+    seializer_edu=Educationserializer
     def get(self, request):
         queryset = User.objects.all()
-        # print(queryset)
-        # for user in queryset:
-        #  print(f"User ID: {user.id}")
-        #  print(f"Username: {user.Name}")
-        #  print(f"Email: {user.Email}")
         users = []
-        
         for user in queryset:
+            education=user.education_set.all()
             user_data = self.serializer_class(user).data
-           
-
-            user_data['education'] = NestedEducationSerializer(user.education_set.all(), many=True).data
-            print(user_data)
-            user_data['id'] = user.id 
+            user_data['education'] = self.seializer_edu(user.education_set.all(), many=True).data
+            # print(user_data)
             users.append(user_data)
-
         return Response({'data': users, 'message': 'All data retrieved successfully', 'success': True}, status=status.HTTP_200_OK)
     
 class Deleteproduct(GenericAPIView):
@@ -92,14 +55,15 @@ class Deleteproduct(GenericAPIView):
 
 
 
+
+
 class Getsingleproduct(GenericAPIView):
     def get(self, request, id):
         try:
             user = User.objects.get(pk=id)
-            user_data = CombinedUserDataSerializer(user).data
-            
+            user_data = Userserializer(user).data
             education = Education.objects.filter(log_id=user)
-            education_data = EducationSerializertwo(education, many=True).data
+            education_data = Educationserializer(education, many=True).data
 
             response_data = {
                 'data': {
@@ -114,45 +78,13 @@ class Getsingleproduct(GenericAPIView):
         except User.DoesNotExist:
             return Response({'message': 'User not found', 'success': False}, status=status.HTTP_404_NOT_FOUND)
     
-class UpdateEducation(UpdateAPIView):
-    queryset = User.objects.all()
-    serializer_class = CombinedUserDataSerializer
 
-    def update(self, request, *args, **kwargs):
-        user_id = kwargs.get('user_id')
-        try:
-            user = User.objects.prefetch_related('educations').get(pk=user_id)
-        except User.DoesNotExist:
-            return Response({'message': 'User not found', 'success': False}, status=status.HTTP_404_NOT_FOUND)
-
-        user_serializer = CombinedUserDataSerializer(instance=user, data=request.data, partial=True)
-        if user_serializer.is_valid():
-            user_serializer.save()
-
-            # Update the nested "education" objects
-            education_data = request.data.get('education', [])  # Assuming 'education' is the key for nested data
-            for index, education_item in enumerate(education_data):
-                education_id = education_item.get('id')  # Assuming there's an 'id' field in the nested data
-                if education_id:
-                    education_obj = Education.objects.get(pk=education_id)
-                    education_serializer = NestedEducationSerializer(instance=education_obj, data=education_item, partial=True)
-                    if education_serializer.is_valid():
-                        education_serializer.save()
-                else:
-                    # Handle case where a new education item needs to be created
-                    education_serializer = NestedEducationSerializer(data=education_item)
-                    if education_serializer.is_valid():
-                        education_serializer.save(log_id=user)
-
-            return Response({'message': 'Education updated successfully', 'success': True})
-        else:
-            return Response({'message': 'Update failed', 'errors': user_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         
         
 
 
 class Updatetwo(UpdateAPIView):
-    serializer_class = EducationSerializer
+    serializer_class = Userserializer
 
     def put(self, request, id):
         # Get the user and education records for the provided id
