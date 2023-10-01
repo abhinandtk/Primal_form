@@ -1,0 +1,30 @@
+.box{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    gap: 50px
+    ;
+}
+.box > .card{
+    border-radius: 5px;
+}
+.bigbox{
+    padding: 50px;
+    background-color: rgb(160, 160, 160);
+}
+.box2{
+    background-color: rgb(220, 250, 220);
+    padding: 30px;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+.buttons{
+    margin-top: 20px;
+    background-color: dodgerblue;
+    border: 0;
+    border-radius: 2px;
+    font-size: 20px;
+}

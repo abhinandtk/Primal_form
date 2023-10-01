@@ -1,0 +1,29 @@
+.mmdiv{
+    margin: 100px auto;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(147, 175, 168);
+}
+.firstrow{
+    display: flex;
+    justify-content: space-between;
+
+}
+.seconddiv{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+
+
+}
+.seconddiv input[type=text]{
+    width: 150px;
+
+}
+.button{
+    margin-top: 20px;
+    margin-left: 20px;
+}
