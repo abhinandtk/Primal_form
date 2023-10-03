@@ -81,7 +81,7 @@ export default function Example() {
 
         console.log(state);
         axios.post('http://127.0.0.1:8000/api/Register',state).then((response)=>{
-            toast('🦄 User registered successfully!', {
+            toast('User registered successfully!', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -144,7 +144,7 @@ export default function Example() {
         <div className="form">
         <form onSubmit={submit} >
                 <>
-                 <div class="form-row">
+                 <div class="form-row first">
                  <div class="col-md-6 mb-3">
                    <input type="text" class="form-control" id="validationDefault01" name='Name'  onChange={inputchange}  placeholder='Name'  required></input>
                  </div>
@@ -155,15 +155,15 @@ export default function Example() {
              
                  </div>
                </div>
-               <div class="form-row">
+               <div class="form-row second">
                {state.abc.map((value,index)=>(
 
                      <>
-                     <div key={index} class="col-md-4 mb-3">
+                     <div key={index} class="col-md-3 mb-3">
                        <label for="validationDefault03">Course</label>
                        <input type="text" class="form-control" id="validationDefault03" value={value.Course} onChange={(event)=>{handleformchange(event,index)}} name='Course'  required></input>
                      </div>
-                      <div class="col-md-4 mb-3">
+                      <div class="col-md-3 mb-3">
                        <label for="validationDefault05">University</label>
                        <input type="text" class="form-control" id="validationDefault05" value={value.University} onChange={(event)=>{handleformchange(event,index)}} name='University'  required></input>
                      </div>
@@ -171,15 +171,16 @@ export default function Example() {
                        <label for="validationDefault05">Date</label>
                        <input type="date" class="form-control" id="validationDefault05" value={value.date} onChange={(event)=>{handleformchange(event,index)}} name='date'  required></input>
                      </div>
-                     <div class="col-md-1 mb-3 buttonn">
-                            <i class="bi bi-plus-square" onClick={addfields}></i>
-                            <i class="bi bi-x-square" onClick={(e) =>{removefields(index)}}></i>
+                     <div class="col-md-2 mb-3 buttonn">
+                            <button class="btn btn-outline-primary"  onClick={(e) =>{removefields(index)}}>Remove</button>
                           </div>
                           </>
                           ))}
 
                </div>
-               <button class="btn btn-primary" type="submit" onClick={submit} >Submit form</button>
+               <button class="btn btn-primary"  type="submit" onClick={submit} >Submit</button>
+               <button class="btn btn-outline-primary ml-3"   onClick={addfields}>Add Course</button>
+
                </>
 
  

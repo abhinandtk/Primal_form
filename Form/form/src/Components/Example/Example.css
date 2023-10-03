@@ -14,19 +14,18 @@
    
 }
 input[type=text]{
-    border-radius: 0;
-    border: 1px black solid;
     border-radius: 5px;
+    
 }
-.col-md-1{
+.buttonn{
     display: flex;
-    flex-direction: column;
-    margin-top: 28px;
-}
-.col-md-1 > .bi{
+    flex-direction: row;
+    align-items: center;
     font-size: 15px;
+    margin-top: 27px;
 
 }
+
 .form-button{
     margin-top: 5px;
 }
@@ -34,3 +33,15 @@ input[type=text]{
     font-size: 15px;
     margin-left: 22px;
 }
+.second .col-md-4{
+    margin-bottom: 25px !important;
+}
+.buttonn > button{
+    text-align: center;
+    width: 80px;
+    height: 35px;
+}
+.second{
+    justify-content: space-between;
+}
+

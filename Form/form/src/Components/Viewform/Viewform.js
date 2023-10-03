@@ -52,9 +52,7 @@ export default function Viewform() {
           <div className="box2">
              <h6 class="card-subtitle mb-2 ">Course.:{val.Course}</h6>
              <h6 class="card-subtitle mb-2 ">University:{val.University}</h6>
-             <h6 class="card-subtitle mb-2 ">Date:{val.date}</h6>
-             {/* <h6 class="card-subtitle mb-2 ">Date.{key+1}:{val.id}</h6> */}
-            
+             <h6 class="card-subtitle mb-2 ">Date:{val.date}</h6>            
              </div>
              </>
 

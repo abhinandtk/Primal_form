@@ -5,18 +5,23 @@
     padding: 40px;
     border-radius: 5px;
     display: flex;
+    gap: 10px
+    ;
     flex-wrap: wrap;
     background-color: white;
 }
 .firstrow{
+    column-gap: 80px;
     display: flex;
     justify-content: space-between;
 
 }
+
 .seconddiv{
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 
 
 }
@@ -36,3 +41,7 @@
     background-size: cover;
 
 }
+.buttonns{
+    text-align: center;
+}
+

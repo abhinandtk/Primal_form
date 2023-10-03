@@ -3,6 +3,12 @@ import Navbar from '../Navbar/Navbar';
 import axios from 'axios';
 import './Trial.css'
 import { ToastContainer, toast } from 'react-toastify';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import { Add } from '@mui/icons-material';
+
 
 
 export default function Trial() {
@@ -15,7 +21,7 @@ export default function Trial() {
     console.log(id);
     axios.put(`http://127.0.0.1:8000/api/Updatetwo/${id}`, update).then((response) => {
       console.log(response);
-      toast.success('Emaiil updated successfully', {
+      toast.success('Updated successfully', {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -110,45 +116,37 @@ export default function Trial() {
       <div className="firstrow">
       <div>
         <label>Name:</label>
-        <input
-          type="text"
+        <TextField    type="text"
           name="Name"
           value={update.Name}
-          onChange={handlesChange}
-        />
+          onChange={handlesChange}/>
       </div>
       <div>
         <label>Email:</label>
-        <input
-          name="Email"
-          type="text"
+        <TextField  name="Email"
+          type="email"
           value={update.Email}
-          onChange={handlesChange}
-        />
+          onChange={handlesChange}></TextField>
       </div>
       </div>
         {update.abc?.map((educationItem, index) => (
             <>
                   <div className='seconddiv' >
 
-            <div key={index}>
-              <label >Course</label>
-              <input type="text"  value={educationItem.Course}
-              onChange={(e) => handleEducationChange(e, index)} name='Course'  required></input>
+            <div className='' key={index}>
+              <TextField id="standard-basic"   variant="standard"  type="text"   value={educationItem.Course}
+              onChange={(e) => handleEducationChange(e, index)}  name='Course'  required/>
             </div>
              <div className='text-center'>
-              <label >University{index}</label>
-              <input type="text"   value={educationItem.University}
-              onChange={(e) => handleEducationChange(e, index)}  name='University'  required></input>
+              <TextField id="standard-basic"   variant="standard"  type="text"   value={educationItem.University}
+              onChange={(e) => handleEducationChange(e, index)}  name='University'  required/>
             </div>
             <div className='text-center'>
-              <label >Date</label>
-              <input type="date"   value={educationItem.date}
-              onChange={(e) => handleEducationChange(e, index)} id="validationDefault05" name='date'  required></input>
+              <TextField id="standard-basic"  variant="standard"  type="date"   value={educationItem.date}
+              onChange={(e) => handleEducationChange(e, index)}  name='date'  required/>
             </div>
-            <div className='button' >
-                   <i class="bi bi-plus-square" onClick={addEducationField}></i>
-                   <i class="bi bi-x-square" onClick={(e)=>{removeEducationField(index)}}></i>
+            <div className='buttonns' >
+                   <Button  style={{padding:'3px 12px',minWidth:'39px'}} variant="outlined"onClick={(e)=>{removeEducationField(index)}} startIcon={<DeleteIcon />}></Button>
                  </div>
                  </div>
 
@@ -156,7 +154,8 @@ export default function Trial() {
         ))}
 
 
-        <button onClick={submit}>Submit</button>
+<Button  variant="contained" onClick={submit}>Update</Button>
+        <Button  variant="outlined"onClick={addEducationField} startIcon={<Add />}></Button>
     </div>
     </div>
 
