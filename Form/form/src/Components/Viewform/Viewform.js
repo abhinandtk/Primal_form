@@ -32,6 +32,8 @@ export default function Viewform() {
         navigate('/Trial')
 
     }
+    const reversedState = [...state].reverse();
+
 
 
   return (
@@ -40,7 +42,7 @@ export default function Viewform() {
     <div className="bigbox">
     <div className="box">
 
-    {state.map((value,key)=>(
+    {reversedState.map((value,key)=>(
          <div class="card" style={{width:'22rem'}}>'
         <div class="card-body">
           <h5 class="card-title">id:{value.id}</h5>
@@ -48,10 +50,10 @@ export default function Viewform() {
           <h5 class="card-title">Email:{value.Email}</h5>
           {value.education.map((val,key)=>(<>
           <div className="box2">
-             <h6 class="card-subtitle mb-2 ">Course.{key+1}:{val.Course}</h6>
-             <h6 class="card-subtitle mb-2 ">University.{key+1}:{val.University}</h6>
-             <h6 class="card-subtitle mb-2 ">Date.{key+1}:{val.date}</h6>
-             <h6 class="card-subtitle mb-2 ">Date.{key+1}:{val.id}</h6>
+             <h6 class="card-subtitle mb-2 ">Course.:{val.Course}</h6>
+             <h6 class="card-subtitle mb-2 ">University:{val.University}</h6>
+             <h6 class="card-subtitle mb-2 ">Date:{val.date}</h6>
+             {/* <h6 class="card-subtitle mb-2 ">Date.{key+1}:{val.id}</h6> */}
             
              </div>
              </>

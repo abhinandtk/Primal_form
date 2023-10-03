@@ -9,6 +9,7 @@ import './Example.css'
 
 
 
+
 export default function Example() {
     const navigate=useNavigate()
     const [state,setState]=useState({
@@ -19,7 +20,8 @@ export default function Example() {
 
         {Course:'',
         University:'',
-        date:''}
+        date:'',
+     }
     ]})
     const inputchange=(e)=>{
         const {name,value}=e.target
@@ -106,25 +108,31 @@ export default function Example() {
         })
     }
     const addfields=()=>{
-        let object={
-            Course:'',
-            University:'',
-            date:''
-        }
-        setState({ ...state, abc: [...state.abc, object] });
+      setState((prevState) => ({
+        ...prevState,
+        abc: [
+          ...prevState.abc,
+          {
+            Course: '',
+            University: '',
+            date: '',
+  
+          },
+        ],
+      }));
     }
-    const removefields=(e,index)=>{
-      // e.preventDefault()
-        // console.log(index);
-        // console.log([...state.abc]);
-        // console.log(data);
-        let data=[...state.abc]
-        data.splice(index,1)
-        console.log(data);
+      const removefields = (index) => {
+        const updatedEducation = [...state.abc]; // Create a copy of the original array
 
-        setState((prev) => ({ ...prev, abc: data }));
+        updatedEducation.splice(index, 1); // Remove one element at the specified index
+        console.log(index);
+        console.log(updatedEducation);
 
-    }
+        setState({ ...state, abc: updatedEducation });
+      };
+      
+
+    
     console.log(state);
     
    
@@ -153,19 +161,19 @@ export default function Example() {
                      <>
                      <div key={index} class="col-md-4 mb-3">
                        <label for="validationDefault03">Course</label>
-                       <input type="text" class="form-control" id="validationDefault03" value={state.Course} onChange={(event)=>{handleformchange(event,index)}} name='Course'  required></input>
+                       <input type="text" class="form-control" id="validationDefault03" value={value.Course} onChange={(event)=>{handleformchange(event,index)}} name='Course'  required></input>
                      </div>
                       <div class="col-md-4 mb-3">
-                       <label for="validationDefault05">University{index}</label>
-                       <input type="text" class="form-control" id="validationDefault05" value={state.University} onChange={(event)=>{handleformchange(event,index)}} name='University'  required></input>
+                       <label for="validationDefault05">University</label>
+                       <input type="text" class="form-control" id="validationDefault05" value={value.University} onChange={(event)=>{handleformchange(event,index)}} name='University'  required></input>
                      </div>
                      <div class="col-md-3 mb-3">
                        <label for="validationDefault05">Date</label>
-                       <input type="date" class="form-control" id="validationDefault05" value={state.date} onChange={(event)=>{handleformchange(event,index)}} name='date'  required></input>
+                       <input type="date" class="form-control" id="validationDefault05" value={value.date} onChange={(event)=>{handleformchange(event,index)}} name='date'  required></input>
                      </div>
-                     <div class="col-md-1 mb-3">
+                     <div class="col-md-1 mb-3 buttonn">
                             <i class="bi bi-plus-square" onClick={addfields}></i>
-                            <i class="bi bi-x-square" onClick={(e)=>{removefields(e,index)}}></i>
+                            <i class="bi bi-x-square" onClick={(e) =>{removefields(index)}}></i>
                           </div>
                           </>
                           ))}

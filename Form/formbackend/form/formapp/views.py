@@ -87,40 +87,44 @@ class Updatetwo(UpdateAPIView):
     serializer_class = Userserializer
 
     def put(self, request, id):
-        # Get the user and education records for the provided id
         user = User.objects.get(id=id)
         education = Education.objects.filter(log_id=id)
-
-        # Extract the 'abc' data from the request
         abc = request.data.get('abc', [])
-
-        # Collect IDs of education records to delete
+        
         existing_ids = [e.id for e in education]
         ids_to_delete = [education_id for education_id in existing_ids if education_id not in [data.get('id') for data in abc]]
-
-        # Delete education records that are not in the updated 'abc' list
         Education.objects.filter(id__in=ids_to_delete).delete()
 
-        # Update or create education records
         for data in abc:
             education_id = data.get('id')
             if education_id:
-                # Update existing education record
                 education_record = Education.objects.get(id=education_id)
+                if not data.get('Course'):
+                 raise serializer.ValidationError({'Course': 'Course field cannot be blank.'})
+                if not data.get('University'):
+                  raise serializer.ValidationError({'University': 'University field cannot be blank.'})
+                if not data.get('date'):
+                  raise serializer.ValidationError({'date': 'Date field cannot be blank.'})
                 education_record.Course = data['Course']
                 education_record.University = data['University']
                 education_record.date = data['date']
+        
+                # Save the updated education_record
                 education_record.save()
             else:
-                # Create new education record
-                Education.objects.create(log_id=user, Course=data['Course'], University=data['University'], date=data['date'])
+                 if not data.get('Course'):
+                  raise serializer.ValidationError({'Course': 'Course field cannot be blank.'})
+                 if not data.get('University'):
+                  raise serializer.ValidationError({'University': 'University field cannot be blank.'})
+                 if not data.get('date'):
+                  raise serializer.ValidationError({'date': 'Date field cannot be blank.'})
+                 Education.objects.create(log_id=user, Course=data['Course'], University=data['University'], date=data['date'])
 
-        # Update user data
         user.Name = request.data.get('Name', user.Name)
         user.Email = request.data.get('Email', user.Email)
         user.save()
 
-        serializer = self.serializer_class(instance=user, partial=True, data=request.data)
+        serializer = self.serializer_class(instance=user,  data=request.data)
 
         if serializer.is_valid():
             serializer.save()

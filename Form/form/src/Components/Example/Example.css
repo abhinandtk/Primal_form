@@ -30,3 +30,7 @@ input[type=text]{
 .form-button{
     margin-top: 5px;
 }
+.buttonn > .bi{
+    font-size: 15px;
+    margin-left: 22px;
+}

@@ -18,9 +18,6 @@ export default function Navbar() {
       <li class="nav-item active">
         <a class="nav-link text-white" href="/Viewform">View user</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link text-white" href="/Trial">Trial</a>
-      </li>
     </ul>
     
   </div>

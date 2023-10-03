@@ -107,20 +107,20 @@ export default function Edit_page() {
 
     toast.dismiss();
 
-    // Check for empty fields
-    // if (!state.Name ||!state.Email || !update.Email ) {
-    //   toast.error('Empty field!', {
-    //     position: 'top-right',
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: 'light'
-    //   });
-    //   return;
-    // }
+    if (!update.Name || !update.Email || update.abc.some((item) => !item.Course || !item.University || !item.date)) {
+      toast.error('Empty field!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+  
+      return;
+    }
 
     console.log(state);
   };

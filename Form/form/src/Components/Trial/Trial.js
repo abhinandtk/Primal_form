@@ -2,31 +2,47 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import axios from 'axios';
 import './Trial.css'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export default function Trial() {
-  const [data, setData] = useState([]);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [update, setUpdate] = useState({
-    Name: '',
-    Email: '',
-    abc: [
-      {
-        Course: '',
-        University: '',
-        date: '',
-      },
-    ],
   });
 
   const submit = () => {
     const id = localStorage.getItem('id');
+    console.log(update);
     console.log(id);
     axios.put(`http://127.0.0.1:8000/api/Updatetwo/${id}`, update).then((response) => {
       console.log(response);
+      toast.success('Emaiil updated successfully', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light'
+      });
     }).catch((error) => {
-      console.log(error);
+      console.error('Error:', error);
+     
+
     });
+    if (!update.Name || !update.Email || update.abc.some((item) => !item.Course || !item.University || !item.date)) {
+      toast.error('Empty field!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      return;
+    }
   }
 
   useEffect(() => {
@@ -42,10 +58,6 @@ export default function Trial() {
           Email: responseData.data.user.Email,
           abc: responseData.data.education,
         });
-
-        setData(responseData.data);
-        setName(responseData.data.user.Name);
-        setEmail(responseData.data.user.Email);
       } catch (error) {
         console.error(error);
       }
@@ -82,7 +94,9 @@ export default function Trial() {
 
   const removeEducationField = (index) => {
     const updatedEducation = [...update.abc];
+    console.log(index);
     updatedEducation.splice(index, 1);
+    console.log(updatedEducation);
     setUpdate({ ...update, abc: updatedEducation });
   };
   console.log(update);
@@ -90,8 +104,9 @@ export default function Trial() {
   return (
     <>
     <Navbar></Navbar>
-
+    <div className="bdiv">
     <div className='mmdiv'>
+      <ToastContainer></ToastContainer>
       <div className="firstrow">
       <div>
         <label>Name:</label>
@@ -112,7 +127,7 @@ export default function Trial() {
         />
       </div>
       </div>
-        {update.abc.map((educationItem, index) => (
+        {update.abc?.map((educationItem, index) => (
             <>
                   <div className='seconddiv' >
 
@@ -122,7 +137,7 @@ export default function Trial() {
               onChange={(e) => handleEducationChange(e, index)} name='Course'  required></input>
             </div>
              <div className='text-center'>
-              <label >University</label>
+              <label >University{index}</label>
               <input type="text"   value={educationItem.University}
               onChange={(e) => handleEducationChange(e, index)}  name='University'  required></input>
             </div>
@@ -133,7 +148,7 @@ export default function Trial() {
             </div>
             <div className='button' >
                    <i class="bi bi-plus-square" onClick={addEducationField}></i>
-                   <i class="bi bi-x-square" onClick={(e)=>{removeEducationField(e,index)}}></i>
+                   <i class="bi bi-x-square" onClick={(e)=>{removeEducationField(index)}}></i>
                  </div>
                  </div>
 
@@ -143,6 +158,8 @@ export default function Trial() {
 
         <button onClick={submit}>Submit</button>
     </div>
+    </div>
+
     </>
   );
 }

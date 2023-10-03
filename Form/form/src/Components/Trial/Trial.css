@@ -1,11 +1,12 @@
 .mmdiv{
-    margin: 100px auto;
+    padding-top: 100px;
+    margin: 0 auto;
     max-width: 600px;
     padding: 40px;
     border-radius: 5px;
     display: flex;
     flex-wrap: wrap;
-    background-color: rgb(147, 175, 168);
+    background-color: white;
 }
 .firstrow{
     display: flex;
@@ -26,4 +27,12 @@
 .button{
     margin-top: 20px;
     margin-left: 20px;
+}
+.bdiv{
+    padding-top: 100px;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./Images/formimagee.jpg');
+    background-size: cover;
+
 }
