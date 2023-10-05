@@ -6,20 +6,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
 import { Add } from '@mui/icons-material';
 
 
 
 export default function Trial() {
-  const [update, setUpdate] = useState({
-  });
+  const [update, setUpdate] = useState({});
 
   const submit = () => {
     const id = localStorage.getItem('id');
     console.log(update);
     console.log(id);
-    axios.put(`http://127.0.0.1:8000/api/Updatetwo/${id}`, update).then((response) => {
+    axios.put(`https://abhinand.9pc.in/api/Updatetwo/${id}`, update).then((response) => {
       console.log(response);
       toast.success('Updated successfully', {
         position: 'top-right',
@@ -55,7 +53,7 @@ export default function Trial() {
     const fetchData = async () => {
       try {
         const id = localStorage.getItem('id');
-        const response = await fetch(`http://127.0.0.1:8000/api/Getsingleproduct/${id}`);
+        const response = await fetch(`https://abhinand.9pc.in/api/Getsingleproduct/${id}`);
         const responseData = await response.json();
 
         // Initialize update state with existing data
@@ -133,16 +131,17 @@ export default function Trial() {
             <>
                   <div className='seconddiv' >
 
+
             <div className='' key={index}>
-              <TextField id="standard-basic"   variant="standard"  type="text"   value={educationItem.Course}
+              <TextField  id="standard-basic"   variant="standard" placeholder='Course'  type="text"   value={educationItem.Course}
               onChange={(e) => handleEducationChange(e, index)}  name='Course'  required/>
             </div>
              <div className='text-center'>
-              <TextField id="standard-basic"   variant="standard"  type="text"   value={educationItem.University}
+              <TextField id="standard-basic"    variant="standard" placeholder='University'  type="text"   value={educationItem.University}
               onChange={(e) => handleEducationChange(e, index)}  name='University'  required/>
             </div>
             <div className='text-center'>
-              <TextField id="standard-basic"  variant="standard"  type="date"   value={educationItem.date}
+              <TextField id="standard-basic"   variant="standard" placeholder='Year'  type="date"   value={educationItem.date}
               onChange={(e) => handleEducationChange(e, index)}  name='date'  required/>
             </div>
             <div className='buttonns' >

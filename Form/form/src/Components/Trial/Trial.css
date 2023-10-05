@@ -2,6 +2,7 @@
     padding-top: 100px;
     margin: 0 auto;
     max-width: 600px;
+    width: 90%;
     padding: 40px;
     border-radius: 5px;
     display: flex;
@@ -20,6 +21,7 @@
 .seconddiv{
     margin-top: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 10px;
 
@@ -36,9 +38,10 @@
 .bdiv{
     padding-top: 100px;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-image: url('./Images/formimagee.jpg');
     background-size: cover;
+    padding-bottom: 100px;
 
 }
 .buttonns{

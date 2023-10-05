@@ -80,7 +80,7 @@ export default function Example() {
 
 
         console.log(state);
-        axios.post('http://127.0.0.1:8000/api/Register',state).then((response)=>{
+        axios.post('https://abhinand.9pc.in/api/Register',state).then((response)=>{
             toast('User registered successfully!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -178,8 +178,8 @@ export default function Example() {
                           ))}
 
                </div>
-               <button class="btn btn-primary"  type="submit" onClick={submit} >Submit</button>
-               <button class="btn btn-outline-primary ml-3"   onClick={addfields}>Add Course</button>
+               <button class="btn btn-primary subb"  type="submit" onClick={submit} >Submit</button>
+               <button class="btn addb btn-outline-primary "   onClick={addfields}>Add Course</button>
 
                </>
 

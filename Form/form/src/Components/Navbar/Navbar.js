@@ -1,13 +1,15 @@
 import React from 'react'
 import './Navbar.css'
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 export default function Navbar() {
   return (
     <>
-    <nav class="navbar navbar-expand-lg ">
+    <nav class="navbar navbar-expand-lg">
   <a class="navbar-brand text-white" href="#">Candidate form</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <MenuIcon />
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
