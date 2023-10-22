@@ -122,13 +122,17 @@ export default function Example() {
       }));
     }
       const removefields = (index) => {
-        const updatedEducation = [...state.abc]; // Create a copy of the original array
+        if(state.abc.length > 1 ){
+          const updatedEducation = [...state.abc]; // Create a copy of the original array
 
-        updatedEducation.splice(index, 1); // Remove one element at the specified index
-        console.log(index);
-        console.log(updatedEducation);
+          updatedEducation.splice(index, 1); // Remove one element at the specified index
+          console.log(index);
+          console.log(updatedEducation);
+  
+          setState({ ...state, abc: updatedEducation });
 
-        setState({ ...state, abc: updatedEducation });
+        }
+       
       };
       
 
@@ -172,7 +176,7 @@ export default function Example() {
                        <input type="date" class="form-control" id="validationDefault05" value={value.date} onChange={(event)=>{handleformchange(event,index)}} name='date'  required></input>
                      </div>
                      <div class="col-md-2 mb-3 buttonn">
-                            <button class="btn btn-outline-primary"  onClick={(e) =>{removefields(index)}}>Remove</button>
+                            <button class="btn btn-outline-primary" type='button'  onClick={(e) =>{removefields(index)}}>Remove</button>
                           </div>
                           </>
                           ))}

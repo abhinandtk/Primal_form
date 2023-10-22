@@ -97,11 +97,15 @@ export default function Trial() {
   };
 
   const removeEducationField = (index) => {
-    const updatedEducation = [...update.abc];
-    console.log(index);
-    updatedEducation.splice(index, 1);
-    console.log(updatedEducation);
-    setUpdate({ ...update, abc: updatedEducation });
+    if(update.abc.length>1){
+      const updatedEducation = [...update.abc];
+      console.log(index);
+      updatedEducation.splice(index, 1);
+      console.log(updatedEducation);
+      setUpdate({ ...update, abc: updatedEducation });
+
+    }
+  
   };
   console.log(update);
 

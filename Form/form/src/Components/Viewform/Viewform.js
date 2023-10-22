@@ -4,11 +4,12 @@ import Navbar from '../Navbar/Navbar'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button';
+import { ToastContainer, toast } from 'react-toastify'
+
 
 
 export default function Viewform() {
     const [state,setState]=useState([])
-    const [smallstate,setsmall]=useState([])
     const navigate=useNavigate()
     useEffect(()=>{
         axios.get('https://abhinand.9pc.in/api/GetCombinedData').then((response)=>{
@@ -22,8 +23,23 @@ export default function Viewform() {
     const deletemethod=(logid)=>{
         console.log(logid);
         axios.delete(`https://abhinand.9pc.in/api/Deleteproduct/${logid}`).then((response)=>{
-            window.location.reload()
-            console.log(response);
+          toast.success('Deleted successfully!', {
+            position: 'top-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        
+          });
+          setInterval(set,700)
+          function set(){
+              
+              window.location.reload()
+          
+          }
+         
         }).catch((error)=>{
             console.log(error);
         })
@@ -42,12 +58,19 @@ export default function Viewform() {
     <>
     <Navbar></Navbar>
     <div className="bigbox">
-    {/* <div className="smallbox">
+    {/* <div className='smallbox'>
+      <input placeholder='search' style={{width:'125px',height:'40px'}} type="text" />
     <button className="searchbutton">Search</button>
+
 
     </div> */}
 
+
+
+  
+
     <div className="box">
+      <ToastContainer></ToastContainer>
 
     {reversedState.map((value,key)=>(
          <div class="card" style={{width:'22rem'}}>'
@@ -66,6 +89,7 @@ export default function Viewform() {
           ))}
           <Button style={{marginTop:'10px'}}onClick={()=>editmethod(value.id)} className='mr-3 buttons' variant="outlined">Edit</Button>
 <Button 
+type='submit'
   style={{marginTop:'10px'}} onClick={()=>deletemethod(value.id)} value='Delete' variant="outlined">Delete</Button>
          
         </div>
